@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+  <changeSet id="create-default-test-user" author="brownleys">
+
+    <insert tableName="GNRLY_ROLE">
+      <column name="VERSION" value="0"/>
+      <column name="NAME" value="ADMIN"/>
+    </insert>
+
+    <insert tableName="GNRLY_USERS">
+      <column name="VERSION" value="0" />
+      <column name="ENABLED" valueBoolean="true" />
+      <column name="PASSWORD" value="$2a$10$GBBKDTHQQSOLtmLArk5NeurvGCtGmsmuwdECLpi9TDkAA6PIRT1Qi" />
+      <column name="USERNAME" value="admin" />
+      <column name="ROLE_FK" valueComputed="(select PK from GNRLY_ROLE where name = 'ADMIN')"/>
+    </insert>
+    
+<!--    <insert tableName="GNRLY_USER_GNRLY_ROLE">-->
+<!--      <column name="User_PK" valueComputed="(select PK from GNRLY_USER where username = 'admin')" />-->
+<!--      <column name="Roles_PK" valueComputed="(select PK from HALO_ROLE where name = 'USER')" />-->
+<!--    </insert>-->
+  </changeSet>
+</databaseChangeLog>

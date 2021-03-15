@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+  <property name="now" value="SYSDATETIME()" dbms="mssql" />
+  <property name="now" value="CURRENT_TIMESTAMP()" dbms="mysql" />
+
+  <changeSet id="alter database transaction isolation level" author="brownleys" runInTransaction="false" dbms="mssql">
+    <validCheckSum>PAGE_LOCKING_FIX</validCheckSum>
+    <sql>ALTER DATABASE ${database-name} SET ALLOW_SNAPSHOT_ISOLATION ON;</sql>
+    <sql>ALTER DATABASE ${database-name} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;</sql>
+    <sql>ALTER DATABASE ${database-name} SET READ_COMMITTED_SNAPSHOT ON;</sql>
+    <sql>ALTER DATABASE ${database-name} SET MULTI_USER;</sql>
+  </changeSet>
+
+<!--  <changeSet id="create-schema-mysql" author="brownleys" dbms="mysql">-->
+<!--    <sqlFile path="sql/mysql/create.sql" relativeToChangelogFile="true" />-->
+<!--  </changeSet>-->
+  
+<!--  <changeSet id="create-schema-sqlserver" author="brownleys" dbms="mssql">-->
+<!--    <sqlFile path="sql/sqlserver/create.sql" relativeToChangelogFile="true" />-->
+<!--  </changeSet>-->
+</databaseChangeLog>
